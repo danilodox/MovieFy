@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray_400"
+    tools:context=".ui.movies.MoviesFragment"
+    >
+
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_gravity="center"
+        android:padding="@dimen/dimen_12dp"
+        android:textColor="@color/white"
+        android:elevation="@dimen/dimen_12dp"
+        android:shadowColor="@color/black"
+        android:layout_marginLeft="@dimen/dimen_8dp"
+        android:layout_marginRight="@dimen/dimen_8dp"
+        android:textColorHint="@color/gray_200"
+        android:autofillHints="false"
+        android:hint="Insira o nome do filme"
+        android:inputType="text"
+        android:background="@drawable/edittext_search"
+        android:visibility="visible"/>
+
+    <include
+        android:id="@+id/progress_loading_event"
+        layout="@layout/view_loading"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/error_network_event"
+        layout="@layout/view_error"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_list_movie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="@dimen/dimen_12dp"
+        android:padding="@dimen/dimen_2dp"
+        />
+
+
+</LinearLayout>
