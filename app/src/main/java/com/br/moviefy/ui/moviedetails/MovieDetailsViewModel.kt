@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel (private val repository: MovieRepository) : ViewModel() {
 
-    val mMoviesDetailsLiveData : MutableLiveData<MovieDetails> = MutableLiveData()
-    val loadingDetailsLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    val errorMovieDetailsLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    val mMoviesDetailsLiveData = MutableLiveData<MovieDetails>()
+    val loadingDetailsLiveData = MutableLiveData<Boolean>()
+    val errorMovieDetailsLiveData = MutableLiveData<Boolean>()
 
 
     fun getMovie(id : Int){
@@ -24,7 +24,7 @@ class MovieDetailsViewModel (private val repository: MovieRepository) : ViewMode
         viewModelScope.launch {
             try {
 
-                mMoviesDetailsLiveData.value = repository.getMovieDetails(id)
+                this@MovieDetailsViewModel.mMoviesDetailsLiveData.value = repository.getMovieDetails(id)
 
             } catch (e : Exception){
                 errorMovieDetailsLiveData.value = true

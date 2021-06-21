@@ -15,6 +15,8 @@
     <dimen name="dimen_500dp">500dp</dimen>
 
     <dimen name="dimen_12sp">12sp</dimen>
+    <dimen name="dimen_14sp">14sp</dimen>
+    <dimen name="dimen_15sp">15sp</dimen>
     <dimen name="dimen_16sp">16sp</dimen>
     <dimen name="dimen_20sp">20sp</dimen>
     <dimen name="dimen_22sp">22sp</dimen>

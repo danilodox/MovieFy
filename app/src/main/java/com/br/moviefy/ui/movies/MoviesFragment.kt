@@ -40,7 +40,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
 
@@ -61,7 +61,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private fun initRecyclerObserver() {
 
-        mViewModel.mMoviesLiveData.observe(viewLifecycleOwner, Observer{
+        mViewModel.mMoviesLiveData.observe(viewLifecycleOwner, {
 
             it.results?.let {movies ->
                 with(binding.recyclerListMovie){
@@ -93,13 +93,13 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
 
     private fun showLoading(){
-        mViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+        mViewModel.loadingLiveData.observe(viewLifecycleOwner, {
             binding.progressLoadingEvent.root.isVisible(it)
         })
     }
 
     private fun showError(){
-        mViewModel.errorMoviesLiveData.observe(viewLifecycleOwner, Observer {
+        mViewModel.errorMoviesLiveData.observe(viewLifecycleOwner, {
             binding.errorNetworkEvent.root.isVisible(it)
         })
     }

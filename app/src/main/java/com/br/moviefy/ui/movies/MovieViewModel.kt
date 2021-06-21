@@ -20,8 +20,8 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
     private lateinit var popularMovies : MoviesResponse
 
     private var searchJob: Job? = null
-    val mSearchTextLiveData : MutableLiveData<String> = MutableLiveData()
-    val mSearchMovieLiveData : MutableLiveData<MoviesResponse> = MutableLiveData()
+    private val mSearchTextLiveData : MutableLiveData<String> = MutableLiveData()
+    private val mSearchMovieLiveData : MutableLiveData<MoviesResponse> = MutableLiveData()
 
 
     fun getMovies(){
@@ -54,7 +54,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
             if (query.length > 2) {
                 mSearchTextLiveData.value = query
                 getMovieByQuery(query)
-            }else if(query.isNullOrEmpty()){
+            }else if(query.isEmpty()){
                 mMoviesLiveData.value = popularMovies
             }
         }

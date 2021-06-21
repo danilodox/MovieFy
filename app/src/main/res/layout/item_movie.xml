@@ -13,25 +13,37 @@
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/titleTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/bookCardView"
         app:layout_constraintTop_toTopOf="@id/bookCardView"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Title" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/overviewTextView"
+        android:id="@+id/genreTextView"
         style="@style/SubtitleTextStyle"
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
-        android:maxLines="5"
+        android:layout_marginStart="@dimen/dimen_8dp"
+        android:layout_marginTop="8dp"
         android:textColor="@color/gray_200"
-        app:layout_constraintBottom_toBottomOf="@id/bookCardView"
+        android:textSize="@dimen/dimen_15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/titleTextView"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        tools:text="Overview" />
+        app:layout_constraintStart_toEndOf="@+id/bookCardView"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+    <TextView
+        android:id="@+id/releaseTextView"
+        style="@style/SubtitleTextStyle"
+        android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_8dp"
+        android:textColor="@color/gray_200"
+        android:textSize="@dimen/dimen_14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bookCardView"
+        app:layout_constraintTop_toBottomOf="@+id/genreTextView"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/bookCardView"

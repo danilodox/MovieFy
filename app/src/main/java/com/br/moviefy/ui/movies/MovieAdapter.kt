@@ -10,8 +10,8 @@ import com.br.moviefy.util.loadImage
 class MovieAdapter (private val movies: List<Movie>,
                     private val onItemClick: ((movie: Movie) -> Unit)): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
-    private var dataMovies = mutableListOf<Movie?>()
 
+    private val getGenres = com.br.moviefy.util.GenresAdapter()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -35,8 +35,9 @@ class MovieAdapter (private val movies: List<Movie>,
 
             binding.moviePosterImageView.loadImage(movie.poster_path)
             binding.titleTextView.text = movie.title
-            binding.overviewTextView.text = movie.overview
 
+            binding.genreTextView.text = getGenres.getGenresByInt(movie.genre_ids!!)
+            binding.releaseTextView.text = movie.release_date!!.substring(0, 4)
 
 
             itemView.setOnClickListener{
@@ -45,13 +46,6 @@ class MovieAdapter (private val movies: List<Movie>,
         }
 
     }
-
-    fun updateData(newData : List<Movie?>){
-        dataMovies.clear()
-        dataMovies.addAll(newData)
-        notifyDataSetChanged()
-    }
-
 
 
 

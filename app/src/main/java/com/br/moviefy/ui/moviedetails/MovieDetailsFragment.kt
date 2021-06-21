@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.br.moviefy.R
+import com.br.moviefy.data.model.MovieDetails
 import com.br.moviefy.databinding.FragmentMovieDetailsBinding
+import com.br.moviefy.util.GenresAdapter
 import com.br.moviefy.util.isVisible
 import com.br.moviefy.util.loadImage
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,12 +21,13 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details){
     private val mViewModel : MovieDetailsViewModel by viewModel()
     private lateinit var binding : FragmentMovieDetailsBinding
     private val args : MovieDetailsFragmentArgs by navArgs()
+    private val genresAdapter = GenresAdapter()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
 
@@ -44,42 +46,52 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details){
     }
 
     private fun showLoading(){
-        mViewModel.loadingDetailsLiveData.observe(viewLifecycleOwner, Observer {
-            binding.progressLoadingEvent.root.isVisible(it)
+        with(mViewModel) {
+            loadingDetailsLiveData.observe(viewLifecycleOwner, {
+                binding.progressLoadingEvent.root.isVisible(it)
 
-        })
+            })
+        }
     }
 
     private fun showError(){
-        mViewModel.errorMovieDetailsLiveData.observe(viewLifecycleOwner, Observer {
-            binding.errorNetworkEvent.root.isVisible(it)
-        })
+        with(mViewModel) {
+            errorMovieDetailsLiveData.observe(viewLifecycleOwner, {
+                binding.errorNetworkEvent.root.isVisible(it)
+            })
+        }
     }
 
     private fun initUiElements() {
 
-        mViewModel.mMoviesDetailsLiveData.observe(viewLifecycleOwner, Observer {it ->
+        with(mViewModel) {
+            mMoviesDetailsLiveData.observe(viewLifecycleOwner,  {
 
 
-            it?.let {movie ->
-                binding.movieDetailsPoster.loadImage(movie.poster_path)
-                binding.movieDetailsRelease.text = movie.release_date!!.substring(0, 4)
-                binding.movieDetailsTitle.text = movie.title
-                binding.movieDetailsLanguage.text = movie.original_language
-                binding.movieDetailsOverview.text = movie.overview
-                var genres = ""
-
-                movie.genres!!.forEach {
-                    genres += "${it.name}, "
+                it?.let {movie ->
+                    fillBindingElements(movie)
                 }
-                genres = genres.dropLast( 2)
 
-                com.br.moviefy.util.Spannable().customText(genres, binding.movieDetailsGenre)
-            }
+            })
+            getMovie(args.id)
+        }
 
+    }
 
-        })
-        mViewModel.getMovie(args.id)
+    private fun fillBindingElements( movie : MovieDetails){
+
+        binding.movieDetailsPoster.loadImage(movie.poster_path)
+            binding.movieDetailsRelease.text = movie.release_date!!.substring(0, 4)
+            binding.movieDetailsTitle.text = movie.title
+            binding.movieDetailsLanguage.text = movie.original_language
+            binding.movieDetailsOverview.text = movie.overview
+
+            //Convert object Genre in String
+            val genres : String = genresAdapter.switchGenresIntForString(movie.genres!!)
+
+            //Change the color of a word in the sentence
+            com.br.moviefy.util.Spannable().customText(genres, binding.movieDetailsGenre)
+
 
     }
 
