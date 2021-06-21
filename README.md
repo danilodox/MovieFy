@@ -1,6 +1,8 @@
 ### Hi 👋
 # MovieFy é um app de listagem de filme
 
+*Obs: O app roda apartir da api 21.
+
 **Padrões de Projetos Adotados:**
 - MVVM - Model-View-ViewModel.
 
