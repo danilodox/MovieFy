@@ -37,7 +37,10 @@ class MovieAdapter (private val movies: List<Movie>,
             binding.titleTextView.text = movie.title
 
             binding.genreTextView.text = getGenres.getGenresByInt(movie.genre_ids!!)
-            binding.releaseTextView.text = movie.release_date!!.substring(0, 4)
+            if (movie.release_date!!.length > 4){
+
+                binding.releaseTextView.text = movie.release_date!!.substring(0, 4)
+            }
 
 
             itemView.setOnClickListener{
